@@ -10,7 +10,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddSingleton<OfficialAccount>(new OfficialAccount("wxe1f3fdcea63ded5d", "da4c70f06bfe2f5ce28f610cfafa4a13", "testtoken", "7A7XMwPjzLQU1eWi23cE4Bi5F3lFopXrNd6EFqq19A2"));
 
-
+ 
 
 var app = builder.Build();
 
