@@ -16,17 +16,18 @@ namespace WeAgentAutoReply.Controllers
         {
             this.oa = oa;
         }
-        [HttpGet("OfficialAccount")]
-        public string GetOfficialAccount()
-        {
-            Request.Query.TryGetValue("signature", out StringValues signature);
-            Request.Query.TryGetValue("timestamp", out StringValues timestamp);
-            Request.Query.TryGetValue("nonce", out StringValues nonce);
-            Request.Query.TryGetValue("echostr", out StringValues echostr);
-            if (oa.CheckSignature(timestamp, nonce, signature)) return echostr;
-            return "hello, this is handle view";
-        }
+
+        // public string GetOfficialAccount()
+        // {
+        //     Request.Query.TryGetValue("signature", out StringValues signature);
+        //     Request.Query.TryGetValue("timestamp", out StringValues timestamp);
+        //     Request.Query.TryGetValue("nonce", out StringValues nonce);
+        //     Request.Query.TryGetValue("echostr", out StringValues echostr);
+        //     if (oa.CheckSignature(timestamp, nonce, signature)) return echostr;
+        //     return "hello, this is handle view";
+        // }
         [HttpPost("OfficialAccount")]
+        [HttpGet("OfficialAccount")]
         public string PostOfficialAccount()
         {
             StreamReader stream = new StreamReader(Request.Body);
@@ -47,12 +48,12 @@ namespace WeAgentAutoReply.Controllers
                 };
                 if (content != null)
                 {
-                    AskData askData=   SetAskData(content);
+                    AskData askData = SetAskData(content);
                     if (askData != null)
                     {
                         string baseurl = "https://yuanqi.tencent.com/openapi/v1/agent/chat/completions";
                         string bearerToken = "uHut6fq9nNa0a2cFjviRyj1ED10ZXVsf";
-                
+
                         var client = new RestClient(baseurl);
                         var request = new RestRequest();
                         request.Method = RestSharp.Method.Post;
@@ -60,7 +61,7 @@ namespace WeAgentAutoReply.Controllers
                         request.AddHeader("Authorization", $"Bearer {bearerToken}");
                         request.AddJsonBody(askData);
 
-                        var response =  client.Execute<ChatData>(request);
+                        var response = client.Execute<ChatData>(request);
 
                         if (response.IsSuccessful)
                         {
