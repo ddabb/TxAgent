@@ -14,12 +14,13 @@ builder.Services.AddSingleton<OfficialAccount>(new OfficialAccount("wxe1f3fdcea6
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseSwagger();
-    app.UseSwaggerUI();
-}
+//// Configure the HTTP request pipeline.
+//if (app.Environment.IsDevelopment())
+//{
+app.UseSwagger();
+app.UseSwaggerUI();
+
+//}
 
 app.UseHttpsRedirection();
 
